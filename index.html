@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pramodh ❤️ Pranamya – Wedding Invitation</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -100,6 +101,27 @@
   </style>
 </head>
 <body>
+<!-- Mute Button (Top-Right Corner) -->
+<button id="mute-button" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #fff;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #c44569;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 1100;
+  cursor: pointer;
+">
+  <i id="volume-icon" class="fas fa-volume-up"></i>
+</button>
+
 <!-- Intro Placeholder with Click-to-Play Video -->
 <div id="intro-container" style="
   position: fixed;
@@ -142,6 +164,12 @@
       </div>
     </div>
   </div>
+
+  <!-- Audio element, but hidden initially -->
+  <audio id="background-music" autoplay>
+    <source src="krishna.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
 </div>
 
 
@@ -211,7 +239,7 @@
   <section id="gallery">
     <h2 class="section-title">Memories</h2>
     <div class="gallery">
-      <img src="https://placehold.co/600x400/ffb6b9/fff?text=Engagement" alt="Engagement"/>
+      <img id="engagement-img" src="https://placehold.co/600x400/ffb6b9/fff?text=Engagement" alt="Engagement"/>
       <img src="https://placehold.co/600x400/fcd5ce/fff?text=Trip+Together" alt="Trip"/>
       <video controls>
         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
@@ -219,14 +247,31 @@
       </video>
     </div>
   </section>
+  
+<!-- Image Popup Modal -->
+<div id="image-popup" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1500; justify-content: center; align-items: center;">
+  <div style="position: relative; max-width: 90%; max-height: 90%; display: flex; justify-content: center; align-items: center;">
+    <img id="popup-img" src="" alt="Engagement Image" style="max-width: 90%; max-height: 80vh; object-fit: contain; border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
+    <button id="close-popup" style="position: absolute; top: 10px; right: 10px; background: #fff; border: none; border-radius: 50%; font-size: 24px; color: #c44569; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">X</button>
+  </div>
+</div>
 
+<!-- Contact Section -->
+<section id="contact">
+  <h2 class="section-title">Reach Out</h2>
+  <div style="display: flex; justify-content: center; gap: 20px; padding: 20px;">
+    <!-- Instagram Icon -->
+    <a href="https://instagram.com/pramodh.bhat" target="_blank" style="display: inline-block;">
+      <i class="fab fa-instagram" style="font-size: 40px; color: #c44569; transition: transform 0.3s ease;"></i>
+    </a>
 
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2 class="section-title">Reach Out</h2>
-    <p>Email: <a href="mailto:pramodh@example.com">pramodhbhatt@gmail.com</a></p>
-    <p>Instagram: <a href="https://instagram.com/yourprofile" target="_blank">@pramodh.bhat</a></p>
-  </section>
+    <!-- Facebook Icon -->
+    <a href="http://facebook.com/pramodh.bhat" target="_blank" style="display: inline-block;">
+      <i class="fab fa-facebook" style="font-size: 40px; color: #3b5998; transition: transform 0.3s ease;"></i>
+    </a>
+  </div>
+</section>
+
 
   <!-- Footer -->
   <footer>
@@ -235,47 +280,111 @@
 
   <!-- Particle.js Script -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script>
-
+<script>
   const container = document.getElementById('intro-container');
   const card = document.getElementById('intro-card');
+  const audio = document.getElementById('background-music');
+  const muteButton = document.getElementById('mute-button');
+  const volumeIcon = document.getElementById('volume-icon');
+  const mapLink = document.querySelector('a[href="https://maps.google.com/?q=Sri+Subramanya+Swamy+Temple,+Haluvalli,+Chikkamagalur"]');
+  const engagementImg = document.getElementById('engagement-img');
+  const popup = document.getElementById('image-popup');
+  const popupImg = document.getElementById('popup-img');
+  const closePopup = document.getElementById('close-popup');
 
+  // Event listener to display the image popup when clicking on the Engagement image
+  engagementImg.addEventListener('click', () => {
+    // Replace the source with your actual image URL
+    popupImg.src = "Ghibli_image.png"; // Replace with your image URL
+    popup.style.display = 'flex'; // Show the popup
+  });
+
+  // Close the popup when the close button is clicked
+  closePopup.addEventListener('click', () => {
+    popup.style.display = 'none'; // Hide the popup
+  });
+
+  // Close the popup when clicking anywhere outside the image
+  window.addEventListener('click', (event) => {
+    if (event.target === popup) {
+      popup.style.display = 'none'; // Hide the popup if clicking outside the image
+    }
+  });
+  // Mute/Unmute Button Logic
+  muteButton.addEventListener('click', () => {
+    if (audio.muted) {
+      audio.muted = false;
+      volumeIcon.classList.remove('fa-volume-mute');
+      volumeIcon.classList.add('fa-volume-up');
+    } else {
+      audio.muted = true;
+      volumeIcon.classList.remove('fa-volume-up');
+      volumeIcon.classList.add('fa-volume-mute');
+    }
+  });
+
+  // Click event for the intro card
   card.addEventListener('click', () => {
-    // Replace text with video
+    // Play background music
+    audio.play();
+    
+    // Replace intro card with a video
     card.innerHTML = `
       <video id="intro-video" autoplay muted playsinline style="width: 100%; border-radius: 16px;">
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+        <source src="dooropening.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     `;
 
+    // Hide intro container after video duration
     setTimeout(() => {
       container.style.opacity = '0';
       setTimeout(() => {
         container.style.display = 'none';
       }, 1000);
-    }, 3000);
+    }, 3600);
   });
 
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 80 },
-        "color": { "value": "#ff6f91" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.7 },
-        "size": { "value": 4 },
-        "line_linked": { "enable": true, "distance": 150, "color": "#ffa5ab", "opacity": 0.4, "width": 1 },
-        "move": { "enable": true, "speed": 3 }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": true, "mode": "repulse" },
-          "onclick": { "enable": true, "mode": "push" }
-        }
-      },
-      "retina_detect": true
-    });
-  </script>
+  // Particle.js for the firework/particle background
+  particlesJS("particles-js", {
+    "particles": {
+      "number": { "value": 80 },
+      "color": { "value": "#ff6f91" },
+      "shape": { "type": "circle" },
+      "opacity": { "value": 0.7 },
+      "size": { "value": 4 },
+      "line_linked": { "enable": true, "distance": 150, "color": "#ffa5ab", "opacity": 0.4, "width": 1 },
+      "move": { "enable": true, "speed": 3 }
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": {
+        "onhover": { "enable": true, "mode": "repulse" },
+        "onclick": { "enable": true, "mode": "push" }
+      }
+    },
+    "retina_detect": true
+  });
+
+  // Audio Loop Logic (play the music twice, max)
+  let playCount = 0;
+  const maxPlays = 2; // 1 initial play + 1 loop = 2 total plays
+
+  audio.addEventListener('ended', () => {
+    playCount++;
+    if (playCount < maxPlays) {
+      audio.currentTime = 0; // Reset audio to the start
+      audio.play();
+    } else {
+      audio.pause(); // Stop audio after the max plays
+    }
+  });
+  mapLink.addEventListener('click', () => {
+    audio.pause(); // Stops the audio
+    audio.currentTime = 0; // Resets the audio to the beginning
+  });
+</script>
+
+
 </body>
 </html>
