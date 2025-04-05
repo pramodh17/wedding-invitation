@@ -323,7 +323,7 @@ card.addEventListener('click', () => {
   
   // Replace intro card with a video
   const videoHTML = `
-    <video id="intro-video" autoplay muted preload="auto" playsinline style="width: 100%; border-radius: 16px;">
+    <video id="intro-video" autoplay muted preload="auto" playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 16px;">
       <source src="https://i.imgur.com/8XOrGwT.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
