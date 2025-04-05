@@ -324,47 +324,27 @@
   });
 
   // Click event for the intro card
-card.addEventListener('click', () => {
-  // Play background music
-  audio.play();
-  
-  // Display a loading spinner or placeholder image to avoid white background flash
-  card.innerHTML = `<div class="loading-placeholder" style="width: 100%; height: 100%; background: url('path-to-your-placeholder-image.jpg') no-repeat center center; background-size: cover;"></div>`;
-  
-  // Create the video element
-  const videoElement = document.createElement('video');
-  videoElement.id = 'intro-video';
-  videoElement.autoplay = true;
-  videoElement.muted = true;
-  videoElement.preload = 'auto';
-  videoElement.playsinline = true;
-  videoElement.style.width = '100%';
-  videoElement.style.borderRadius = '16px';
-  
-  // Add the video source
-  const source = document.createElement('source');
-  source.src = 'Temple_door.mp4';
-  source.type = 'video/mp4';
-  videoElement.appendChild(source);
-  
-  // Replace the placeholder with the video once it is ready to play
-  videoElement.oncanplaythrough = () => {
-    // Remove the placeholder
-    card.innerHTML = '';
-    card.appendChild(videoElement);
+  card.addEventListener('click', () => {
+    // Play background music
+    audio.play();
     
-    // Play video immediately after it's ready
-    videoElement.play();
-  };
+    // Replace intro card with a video
+    card.innerHTML = `
+      <video id="intro-video" autoplay muted preload="auto" playsinline style="width: 100%; border-radius: 16px;">
+        <source src="Temple_door.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    `;
 
-  // Hide intro container after video duration
-  setTimeout(() => {
-    container.style.opacity = '0';
+    // Hide intro container after video duration
     setTimeout(() => {
-      container.style.display = 'none';
-    }, 1000);
-  }, 3600);
-});
+      container.style.opacity = '0';
+      setTimeout(() => {
+        container.style.display = 'none';
+      }, 1000);
+    }, 3600);
+  });
+
   // Particle.js for the firework/particle background
   particlesJS("particles-js", {
     "particles": {
