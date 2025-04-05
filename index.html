@@ -252,7 +252,6 @@
 <div id="image-popup" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1500; justify-content: center; align-items: center;">
   <div style="position: relative; max-width: 90%; max-height: 90%; display: flex; justify-content: center; align-items: center;">
     <img id="popup-img" src="" alt="Engagement Image" style="max-width: 90%; max-height: 80vh; object-fit: contain; border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
-    <button id="close-popup" style="position: absolute; top: 10px; right: 10px; background: #fff; border: none; border-radius: 50%; font-size: 24px; color: #c44569; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">X</button>
   </div>
 </div>
 
@@ -290,7 +289,6 @@
   const engagementImg = document.getElementById('engagement-img');
   const popup = document.getElementById('image-popup');
   const popupImg = document.getElementById('popup-img');
-  const closePopup = document.getElementById('close-popup');
 
   // Event listener to display the image popup when clicking on the Engagement image
   engagementImg.addEventListener('click', () => {
@@ -299,10 +297,6 @@
     popup.style.display = 'flex'; // Show the popup
   });
 
-  // Close the popup when the close button is clicked
-  closePopup.addEventListener('click', () => {
-    popup.style.display = 'none'; // Hide the popup
-  });
 
   // Close the popup when clicking anywhere outside the image
   window.addEventListener('click', (event) => {
@@ -323,27 +317,29 @@
     }
   });
 
-  // Click event for the intro card
-  card.addEventListener('click', () => {
-    // Play background music
-    audio.play();
-    
-    // Replace intro card with a video
-    card.innerHTML = `
-      <video id="intro-video" autoplay muted preload="auto" playsinline style="width: 100%; border-radius: 16px;">
-        <source src="Temple_door.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    `;
+card.addEventListener('click', () => {
+  // Play background music
+  audio.play();
+  
+  // Replace intro card with a video
+  const videoHTML = `
+    <video id="intro-video" autoplay muted preload="auto" playsinline style="width: 100%; border-radius: 16px;">
+      <source src="https://i.imgur.com/8XOrGwT.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  `;
 
-    // Hide intro container after video duration
+  card.innerHTML = videoHTML;
+
+  // Hide intro container after video duration
+  setTimeout(() => {
+    container.style.opacity = '0';
     setTimeout(() => {
-      container.style.opacity = '0';
-      setTimeout(() => {
-        container.style.display = 'none';
-      }, 1000);
-    }, 3600);
-  });
+      container.style.display = 'none';
+    }, 1000);
+  }, 3600);
+});
+
 
   // Particle.js for the firework/particle background
   particlesJS("particles-js", {
