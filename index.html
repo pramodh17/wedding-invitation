@@ -340,6 +340,13 @@ card.addEventListener('click', () => {
   }, 4000);
 });
 
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+  });
 
   // Particle.js for the firework/particle background
   particlesJS("particles-js", {
