@@ -330,7 +330,7 @@
     
     // Replace intro card with a video
     card.innerHTML = `
-      <video id="intro-video" autoplay muted playsinline style="width: 100%; border-radius: 16px;">
+      <video id="intro-video" autoplay muted preload="auto" playsinline style="width: 100%; border-radius: 16px;">
         <source src="Temple_door.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -368,7 +368,7 @@
 
   // Audio Loop Logic (play the music twice, max)
   let playCount = 0;
-  const maxPlays = 2; // 1 initial play + 1 loop = 2 total plays
+  const maxPlays = 1; // 1 initial play + 1 loop = 2 total plays
 
   audio.addEventListener('ended', () => {
     playCount++;
