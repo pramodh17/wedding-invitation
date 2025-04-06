@@ -132,7 +132,8 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  transition: opacity 1s ease;
+  opacity: 1;
+  transition: opacity 2s ease;
 ">
   <div id="intro-card" style="
     width: 300px;
@@ -175,7 +176,7 @@
 
   <!-- Firework / Particle background -->
   <canvas id="particles-js"></canvas>
-
+<main id="home" style="display: none; opacity: 0; transition: opacity 1.5s ease;">
   <!-- Header -->
   <header>
     <h1>Pranamya Weds Pramodh</h1>
@@ -276,6 +277,7 @@
   <footer>
     <p>With Love, Pramodh & Pranamya</p>
   </footer>
+  </main>
 
   <!-- Particle.js Script -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -285,7 +287,6 @@
   const audio = document.getElementById('background-music');
   const muteButton = document.getElementById('mute-button');
   const volumeIcon = document.getElementById('volume-icon');
-  const mapLink = document.querySelector('a[href="https://maps.google.com/?q=Sri+Subramanya+Swamy+Temple,+Haluvalli,+Chikkamagalur"]');
   const engagementImg = document.getElementById('engagement-img');
   const popup = document.getElementById('image-popup');
   const popupImg = document.getElementById('popup-img');
@@ -320,25 +321,22 @@
 card.addEventListener('click', () => {
   // Play background music
   audio.play();
-  
-  // Replace intro card with a video
-  const videoHTML = `
-    <video id="intro-video" autoplay muted preload="auto" playsinline style="width: 100%; height: 100%; object-fit: cover;  border-radius: 16px;">
-      <source src="https://i.imgur.com/8XOrGwT.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  `;
 
-  card.innerHTML = videoHTML;
+  // Fade out intro container
+  container.style.opacity = '0';
 
-  // Hide intro container after video duration
-  setTimeout(() => {
-    container.style.opacity = '0';
-    setTimeout(() => {
-      container.style.display = 'none';
-    }, 500);
-  }, 4000);
-});
+  // Hide after fade transition completes
+      setTimeout(() => {
+        container.style.display = 'none';
+        home.style.display = 'block';
+
+        // Trigger fade-in for home
+        requestAnimationFrame(() => {
+          home.style.opacity = '1';
+        });
+      }, 1000); // Match this to your transition duration
+    });
+
 
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
@@ -382,12 +380,9 @@ card.addEventListener('click', () => {
       audio.pause(); // Stop audio after the max plays
     }
   });
-  mapLink.addEventListener('click', () => {
-    audio.pause(); // Stops the audio
-    audio.currentTime = 0; // Resets the audio to the beginning
-  });
-</script>
 
+
+</script>
 
 </body>
 </html>
