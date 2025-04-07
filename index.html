@@ -241,8 +241,24 @@
     <h2 class="section-title">Memories</h2>
     <div class="gallery">
       <img id="engagement-img" src="https://placehold.co/600x400/ffb6b9/fff?text=Engagement" alt="Engagement"/>
-      <img src="https://placehold.co/600x400/fcd5ce/fff?text=Trip+Together" alt="Trip"/>
-      <video controls>
+      <img id="engagement-img1" src="https://placehold.co/600x400/fcd5ce/fff?text=Trip+Together" alt="Trip"/>
+  <div id="image-popup1" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1500; justify-content: center; align-items: center;">
+    <div style="position: relative; max-width: 90%; max-height: 90%; display: flex; justify-content: center; align-items: center;">
+      <!-- Left Arrow -->
+      <button id="left-arrow" style="position: absolute; left: 10px; background: rgba(0, 0, 0, 0.5); color: white; border: none; font-size: 10px; padding: 10px; border-radius: 50%; cursor: pointer;">
+        &#8592;
+      </button>
+
+      <!-- Image -->
+      <img id="popup-img1" src="" alt="Image" style="max-width: 90%; max-height: 80vh; object-fit: contain; border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
+
+      <!-- Right Arrow -->
+      <button id="right-arrow" style="position: absolute; right: 10px; background: rgba(0, 0, 0, 0.5); color: white; border: none; font-size: 10px; padding: 10px; border-radius: 50%; cursor: pointer;">
+        &#8594;
+      </button>
+    </div>
+  </div>
+	    <video controls>
         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
         Your browser does not support video playback.
       </video>
@@ -290,6 +306,50 @@
   const engagementImg = document.getElementById('engagement-img');
   const popup = document.getElementById('image-popup');
   const popupImg = document.getElementById('popup-img');
+  const popup1 = document.getElementById('image-popup1');
+  const popupImg1 = document.getElementById('popup-img1');
+  const engagementImg1 = document.getElementById('engagement-img1');
+// Array of image URLs
+const imageUrls = [
+  "C:/Users/Pramodh/Downloads/image/1.jpg", // Image 1
+  "C:/Users/Pramodh/Downloads/image/2.jpg", // Image 2
+  "C:/Users/Pramodh/Downloads/image/3.jpg", // Image 3
+  // Add more images as needed
+];
+
+// Counter to track which image to display
+let currentImageIndex = 0;
+
+// Function to update the image in the popup
+function updateImage() {
+  popupImg1.src = imageUrls[currentImageIndex];
+}
+
+// Event listener to display the image popup when clicking on the Engagement image
+engagementImg1.addEventListener('click', () => {
+  // Show the popup and update the image
+  popup1.style.display = 'flex';
+  updateImage();  // Display the first image
+});
+
+// Left Arrow - Show previous image
+document.getElementById('left-arrow').addEventListener('click', () => {
+  currentImageIndex = (currentImageIndex - 1 + imageUrls.length) % imageUrls.length; // Loop back to last image if at the start
+  updateImage();
+});
+
+// Right Arrow - Show next image
+document.getElementById('right-arrow').addEventListener('click', () => {
+  currentImageIndex = (currentImageIndex + 1) % imageUrls.length; // Loop back to first image if at the end
+  updateImage();
+});
+
+// Close the popup when clicking anywhere outside the image
+window.addEventListener('click', (event) => {
+  if (event.target === popup1 || event.target === popupImg1) {
+    popup1.style.display = 'none'; // Hide the popup if clicking outside the image
+  }
+});
 
   // Event listener to display the image popup when clicking on the Engagement image
   engagementImg.addEventListener('click', () => {
