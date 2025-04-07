@@ -167,10 +167,11 @@
   </div>
 
   <!-- Audio element, but hidden initially -->
-  <audio id="background-music" autoplay>
-    <source src="krishna.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+<audio id="background-music" autoplay>
+  <source id="audio-source" src="" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+
 </div>
 
 
@@ -242,7 +243,7 @@
     <div class="gallery">
       <img id="engagement-img" src="https://placehold.co/600x400/ffb6b9/fff?text=Invitation" alt="Engagement"/>
       <img id="engagement-img1" src="https://placehold.co/600x400/fcd5ce/fff?text=Memories+Together" alt="Trip"/>
-  <div id="image-popup1" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1500; justify-content: center; align-items: center;">
+	  <div id="image-popup1" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1500; justify-content: center; align-items: center;">
     <div style="position: relative; max-width: 90%; max-height: 90%; display: flex; justify-content: center; align-items: center;">
       <!-- Left Arrow -->
       <button id="left-arrow" style="position: absolute; left: 10px; background: rgba(0, 0, 0, 0.5); color: white; border: none; font-size: 10px; padding: 10px; border-radius: 50%; cursor: pointer;">
@@ -287,7 +288,7 @@
 
 <video id="engagement-video" controls style="display: none; width: 300px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
 
-  <source src="video2.MP4" type="video/mp4">
+  <source src="video2.mp4" type="video/mp4">
 
   Your browser does not support video playback.
 
@@ -330,7 +331,7 @@
 <script>
   const container = document.getElementById('intro-container');
   const card = document.getElementById('intro-card');
-  const audio = document.getElementById('background-music');
+  //const audio = document.getElementById('background-music');
   const muteButton = document.getElementById('mute-button');
   const volumeIcon = document.getElementById('volume-icon');
   const engagementImg = document.getElementById('engagement-img');
@@ -341,6 +342,11 @@
   const engagementImg1 = document.getElementById('engagement-img1');
 const placeholder = document.getElementById('video-placeholder');
 const engagementVideo = document.getElementById('engagement-video');
+  const audioFiles = ['Krishna.mp3', 'Ranjhana.mp3']; // your two files
+  const randomTrack = audioFiles[Math.floor(Math.random() * audioFiles.length)];
+  const audio = document.getElementById('background-music');
+  document.getElementById('audio-source').src = randomTrack;
+    audio.load();
 
 placeholder.addEventListener('click', () => {
   placeholder.style.display = 'none';
