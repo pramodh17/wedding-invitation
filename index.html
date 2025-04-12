@@ -6,99 +6,8 @@
   <title>Pramodh ❤️ Pranamya – Wedding Invitation</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Playfair Display', serif;
-      background: #fffaf5;
-      color: #333;
-      overflow-x: hidden;
-    }
-    canvas#particles-js { position: fixed; top: 0; left: 0; z-index: -1; }
-
-    header {
-      text-align: center;
-      padding: 100px 20px 50px;
-      background: linear-gradient(to bottom right, #ffb6b9, #fcd5ce);
-      color: #fff;
-      animation: fadeIn 2s ease-in-out;
-    }
-    header h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 64px;
-      margin-bottom: 10px;
-    }
-    header p {
-      font-size: 20px;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      background: #fff;
-      z-index: 100;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 10px 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    nav a {
-      text-decoration: none;
-      color: #c44569;
-      font-weight: bold;
-      font-size: 18px;
-    }
-    nav a:hover {
-      color: #ff6f91;
-    }
-
-    section {
-      padding: 80px 20px;
-      text-align: center;
-      transition: all 1s ease;
-    }
-    .section-title {
-      font-size: 36px;
-      margin-bottom: 40px;
-      color: #c44569;
-    }
-
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .gallery img, .gallery video {
-      width: 300px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
-    }
-    .gallery img:hover, .gallery video:hover {
-      transform: scale(1.05);
-    }
-
-    footer {
-      padding: 40px 20px;
-      background: #ffb6b9;
-      text-align: center;
-      color: white;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-	@keyframes pulse {
-	  0% { opacity: 1; transform: translateY(0); }
-	  50% { opacity: 0.5; transform: translateY(10px); }
-	  100% { opacity: 1; transform: translateY(0); }
-	}
-
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 <!-- Mute Button (Top-Right Corner) -->
@@ -246,7 +155,7 @@
 	  <div id="image-popup1" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1500; justify-content: center; align-items: center;">
     <div style="position: relative; max-width: 90%; max-height: 90%; display: flex; justify-content: center; align-items: center;">
       <!-- Left Arrow -->
-      <button id="left-arrow" style="position: absolute; left: 10px; background: rgba(0, 0, 0, 0.5); color: white; border: none; font-size: 10px; padding: 10px; border-radius: 50%; cursor: pointer;">
+      <button id="left-arrow" style="position: absolute; left: 10px; background: rgba(0, 0, 0, 0.5); color: white; border: none; font-size: 20px; padding: 10px; border-radius: 50%; cursor: pointer;">
         &#8592;
       </button>
 
@@ -254,7 +163,7 @@
       <img id="popup-img1" src="" alt="Image" style="max-width: 90%; max-height: 80vh; object-fit: contain; border-radius: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
 
       <!-- Right Arrow -->
-      <button id="right-arrow" style="position: absolute; right: 10px; background: rgba(0, 0, 0, 0.5); color: white; border: none; font-size: 10px; padding: 10px; border-radius: 50%; cursor: pointer;">
+      <button id="right-arrow" style="position: absolute; right: 10px; background: rgba(0, 0, 0, 0.5); color: white; border: none; font-size: 20px; padding: 10px; border-radius: 50%; cursor: pointer;">
         &#8594;
       </button>
     </div>
@@ -328,180 +237,5 @@
 
   <!-- Particle.js Script -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script>
-  const container = document.getElementById('intro-container');
-  const card = document.getElementById('intro-card');
-  //const audio = document.getElementById('background-music');
-  const muteButton = document.getElementById('mute-button');
-  const volumeIcon = document.getElementById('volume-icon');
-  const engagementImg = document.getElementById('engagement-img');
-  const popup = document.getElementById('image-popup');
-  const popupImg = document.getElementById('popup-img');
-  const popup1 = document.getElementById('image-popup1');
-  const popupImg1 = document.getElementById('popup-img1');
-  const engagementImg1 = document.getElementById('engagement-img1');
-const placeholder = document.getElementById('video-placeholder');
-const engagementVideo = document.getElementById('engagement-video');
-  const audioFiles = ['ranjhana.mp3']; // your two files
-  const randomTrack = audioFiles[Math.floor(Math.random() * audioFiles.length)];
-  const audio = document.getElementById('background-music');
-  document.getElementById('audio-source').src = randomTrack;
-    audio.load();
-
-placeholder.addEventListener('click', () => {
-  placeholder.style.display = 'none';
-  engagementVideo.style.display = 'block';
-  engagementVideo.play();
-  // Pause background music
-  if (!audio.paused) audio.pause();
-
-  // Resume after video ends
-  engagementVideo.addEventListener('ended', () => {
-    audio.play();
-  });
-});
-// Array of image URLs
-const imageUrls = [
-  "12.jpg", // Image 1
-  "1.JPG", // Image 1
-  "2.JPG", // Image 2
-  "3.JPG", // Image 3
-  "4.JPG", // Image 4
-  "5.JPG", // Image 5
-  "6.JPG", // Image 6	
-  "7.jpg", // Image 1
-  "8.jpg", // Image 2
-  "9.jpg", // Image 3
-  "10.jpg", // Image 4
-  "11.jpg", // Image 5
-];
-
-// Counter to track which image to display
-let currentImageIndex = 0;
-
-// Function to update the image in the popup
-function updateImage() {
-  popupImg1.src = imageUrls[currentImageIndex];
-}
-
-// Event listener to display the image popup when clicking on the Engagement image
-engagementImg1.addEventListener('click', () => {
-  // Show the popup and update the image
-  popup1.style.display = 'flex';
-  updateImage();  // Display the first image
-});
-
-// Left Arrow - Show previous image
-document.getElementById('left-arrow').addEventListener('click', () => {
-  currentImageIndex = (currentImageIndex - 1 + imageUrls.length) % imageUrls.length; // Loop back to last image if at the start
-  updateImage();
-});
-
-// Right Arrow - Show next image
-document.getElementById('right-arrow').addEventListener('click', () => {
-  currentImageIndex = (currentImageIndex + 1) % imageUrls.length; // Loop back to first image if at the end
-  updateImage();
-});
-
-// Close the popup when clicking anywhere outside the image
-window.addEventListener('click', (event) => {
-  if (event.target === popup1 || event.target === popupImg1) {
-    popup1.style.display = 'none'; // Hide the popup if clicking outside the image
-  }
-});
-
-  // Event listener to display the image popup when clicking on the Engagement image
-  engagementImg.addEventListener('click', () => {
-    // Replace the source with your actual image URL
-    popupImg.src = "13.jpg"; // Replace with your image URL
-    popup.style.display = 'flex'; // Show the popup
-  });
-
-
-  // Close the popup when clicking anywhere outside the image
-  window.addEventListener('click', (event) => {
-    if (event.target === popup || event.target === popupImg) {
-      popup.style.display = 'none'; // Hide the popup if clicking outside the image
-    }
-  });
-  // Mute/Unmute Button Logic
-  muteButton.addEventListener('click', () => {
-    if (audio.muted) {
-      audio.muted = false;
-      volumeIcon.classList.remove('fa-volume-mute');
-      volumeIcon.classList.add('fa-volume-up');
-    } else {
-      audio.muted = true;
-      volumeIcon.classList.remove('fa-volume-up');
-      volumeIcon.classList.add('fa-volume-mute');
-    }
-  });
-
-card.addEventListener('click', () => {
-  // Play background music
-  audio.play();
-
-  // Fade out intro container
-  container.style.opacity = '0';
-
-  // Hide after fade transition completes
-      setTimeout(() => {
-        container.style.display = 'none';
-        home.style.display = 'block';
-
-        // Trigger fade-in for home
-        requestAnimationFrame(() => {
-          home.style.opacity = '1';
-        });
-      }, 1000); // Match this to your transition duration
-    });
-
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
-  });
-
-  // Particle.js for the firework/particle background
-  particlesJS("particles-js", {
-    "particles": {
-      "number": { "value": 80 },
-      "color": { "value": "#ff6f91" },
-      "shape": { "type": "circle" },
-      "opacity": { "value": 0.7 },
-      "size": { "value": 4 },
-      "line_linked": { "enable": true, "distance": 150, "color": "#ffa5ab", "opacity": 0.4, "width": 1 },
-      "move": { "enable": true, "speed": 3 }
-    },
-    "interactivity": {
-      "detect_on": "canvas",
-      "events": {
-        "onhover": { "enable": true, "mode": "repulse" },
-        "onclick": { "enable": true, "mode": "push" }
-      }
-    },
-    "retina_detect": true
-  });
-
-  // Audio Loop Logic (play the music twice, max)
-  let playCount = 0;
-  const maxPlays = 3; // 1 initial play + 1 loop = 2 total plays
-
-  audio.addEventListener('ended', () => {
-    playCount++;
-    if (playCount < maxPlays) {
-      audio.currentTime = 0; // Reset audio to the start
-      audio.play();
-    } else {
-      audio.pause(); // Stop audio after the max plays
-    }
-  });
-
-
-</script>
-
 </body>
 </html>
