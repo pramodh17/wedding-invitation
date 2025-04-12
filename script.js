@@ -168,6 +168,3 @@ card.addEventListener('click', () => {
       audio.pause(); // Stop audio after the max plays
     }
   });
-
-
-</script>
