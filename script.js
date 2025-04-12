@@ -1,21 +1,21 @@
-const container = document.getElementById('intro-container');
-const card = document.getElementById('intro-card');
-//const audio = document.getElementById('background-music');
-const muteButton = document.getElementById('mute-button');
-const volumeIcon = document.getElementById('volume-icon');
-const engagementImg = document.getElementById('engagement-img');
-const popup = document.getElementById('image-popup');
-const popupImg = document.getElementById('popup-img');
-const popup1 = document.getElementById('image-popup1');
-const popupImg1 = document.getElementById('popup-img1');
-const engagementImg1 = document.getElementById('engagement-img1');
+  const container = document.getElementById('intro-container');
+  const card = document.getElementById('intro-card');
+  //const audio = document.getElementById('background-music');
+  const muteButton = document.getElementById('mute-button');
+  const volumeIcon = document.getElementById('volume-icon');
+  const engagementImg = document.getElementById('engagement-img');
+  const popup = document.getElementById('image-popup');
+  const popupImg = document.getElementById('popup-img');
+  const popup1 = document.getElementById('image-popup1');
+  const popupImg1 = document.getElementById('popup-img1');
+  const engagementImg1 = document.getElementById('engagement-img1');
 const placeholder = document.getElementById('video-placeholder');
 const engagementVideo = document.getElementById('engagement-video');
-const audioFiles = ['ranjhana.mp3']; // your two files
-const randomTrack = audioFiles[Math.floor(Math.random() * audioFiles.length)];
-const audio = document.getElementById('background-music');
-document.getElementById('audio-source').src = randomTrack;
-audio.load();
+  const audioFiles = ['ranjhana.mp3']; // your two files
+  const randomTrack = audioFiles[Math.floor(Math.random() * audioFiles.length)];
+  const audio = document.getElementById('background-music');
+  document.getElementById('audio-source').src = randomTrack;
+    audio.load();
 
 placeholder.addEventListener('click', () => {
   placeholder.style.display = 'none';
@@ -31,12 +31,18 @@ placeholder.addEventListener('click', () => {
 });
 // Array of image URLs
 const imageUrls = [
+  "12.jpg", // Image 1
   "1.JPG", // Image 1
   "2.JPG", // Image 2
   "3.JPG", // Image 3
   "4.JPG", // Image 4
   "5.JPG", // Image 5
   "6.JPG", // Image 6	
+  "7.jpg", // Image 1
+  "8.jpg", // Image 2
+  "9.jpg", // Image 3
+  "10.jpg", // Image 4
+  "11.jpg", // Image 5
 ];
 
 // Counter to track which image to display
@@ -54,18 +60,17 @@ engagementImg1.addEventListener('click', () => {
   updateImage();  // Display the first image
 });
 
-document.getElementById('left-arrow').addEventListener('click', (event) => {
-  event.stopPropagation(); // ✅ Prevents the click from closing the popup
-  currentImageIndex = (currentImageIndex - 1 + imageUrls.length) % imageUrls.length;
+// Left Arrow - Show previous image
+document.getElementById('left-arrow').addEventListener('click', () => {
+  currentImageIndex = (currentImageIndex - 1 + imageUrls.length) % imageUrls.length; // Loop back to last image if at the start
   updateImage();
 });
 
-document.getElementById('right-arrow').addEventListener('click', (event) => {
-  event.stopPropagation(); // ✅ Prevents the click from closing the popup
-  currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+// Right Arrow - Show next image
+document.getElementById('right-arrow').addEventListener('click', () => {
+  currentImageIndex = (currentImageIndex + 1) % imageUrls.length; // Loop back to first image if at the end
   updateImage();
 });
-
 
 // Close the popup when clicking anywhere outside the image
 window.addEventListener('click', (event) => {
@@ -77,7 +82,7 @@ window.addEventListener('click', (event) => {
   // Event listener to display the image popup when clicking on the Engagement image
   engagementImg.addEventListener('click', () => {
     // Replace the source with your actual image URL
-    popupImg.src = "Ghibli_image.png"; // Replace with your image URL
+    popupImg.src = "13.jpg"; // Replace with your image URL
     popup.style.display = 'flex'; // Show the popup
   });
 
@@ -163,3 +168,6 @@ card.addEventListener('click', () => {
       audio.pause(); // Stop audio after the max plays
     }
   });
+
+
+</script>
